@@ -1,34 +1,46 @@
 import React from 'react';
 import { Row, Col, Typography } from 'antd';
+import { NavLink, useLocation } from 'react-router-dom';
+import { PRODUCTS_LIST_PATH } from '../routes/const';
+import { CART_PATH } from '../routes/const';
+import { NavLinkIconButton } from './NavLinkIconButton';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { AppstoreOutlined } from '@ant-design/icons';
 
 export const LayoutHeader = () => {
   const { Title } = Typography;
+  const location = useLocation();
+  const isCartedPage = location.pathname === CART_PATH;
   return (
     <>
       <Row>
-        {/* <Col xs={20} sm={12}>
-          {isCartPage ? (
-            <Title style={titleStyle}>장바구니</Title>
-          ) : (
-            <Title style={titleStyle}>상품목록</Title>
-          )}
+        <Col xs={20} sm={12}>
+          <NavLink to={PRODUCTS_LIST_PATH}>
+            <Title style={titleStyle}>CLASS</Title>
+          </NavLink>
         </Col>
         <Col xs={4} sm={12} style={{ textAlign: 'right' }}>
-          {isCartPage ? (
-            <HeaderLinkButton
+          {isCartedPage ? (
+            <NavLinkIconButton
               to={PRODUCTS_LIST_PATH}
               icon={<AppstoreOutlined />}
               text="상품목록"
             />
           ) : (
-            <HeaderLinkButton
+            <NavLinkIconButton
               to={CART_PATH}
               icon={<ShoppingCartOutlined />}
               text="장바구니"
             />
           )}
-        </Col> */}
+        </Col>
       </Row>
     </>
   );
+};
+
+const titleStyle = {
+  color: '#fff',
+  verticalAlign: 'center',
+  marginTop: '7px'
 };

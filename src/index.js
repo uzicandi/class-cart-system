@@ -6,14 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import { LayoutForm } from './components/LayoutForm';
+import { BrowserRouter } from 'react-router-dom';
 
 const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <LayoutForm>
-        <App />
-      </LayoutForm>
+      <BrowserRouter>
+        <LayoutForm>
+          <App />
+        </LayoutForm>
+      </BrowserRouter>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')

@@ -1,12 +1,21 @@
 import React from 'react';
-import ProductListContainer from './containers/ProductListContainer';
-import PagingListContainer from './containers/PagingListContainer';
+import { Route, Redirect } from 'react-router-dom';
+import ProductPage from './pages/ProductPage';
+import CartPage from './pages/CartPage';
+import { PRODUCTS_LIST_PATH } from './routes/const';
+import { CART_PATH } from './routes/const';
 
 function App() {
   return (
     <div>
-      <ProductListContainer />
-      <PagingListContainer />
+      <Route
+        path="/"
+        render={() => {
+          return <Redirect to={PRODUCTS_LIST_PATH} />;
+        }}
+      />
+      <Route path={PRODUCTS_LIST_PATH} component={ProductPage} />
+      <Route path={CART_PATH} component={CartPage} />
     </div>
   );
 }
