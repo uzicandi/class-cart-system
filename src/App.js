@@ -4,6 +4,7 @@ import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import { PRODUCTS_LIST_PATH } from './routes/const';
 import { CART_PATH } from './routes/const';
+import CartListContainer from './containers/CartListContainer';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         }}
       />
       <Route path={PRODUCTS_LIST_PATH} component={ProductPage} />
-      <Route path={CART_PATH} component={CartPage} />
+      <Route path={CART_PATH} component={CartListContainer} />
     </div>
   );
 }
