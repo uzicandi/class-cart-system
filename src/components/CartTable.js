@@ -4,14 +4,16 @@ import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
 
 export const CartTable = props => {
-  const [selectedRowIds, setSelectedRowIds] = useState([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { dataSource } = props;
 
-  const handleSelectChange = useCallback(selectedRows => {
-    console.log('selectedRows', selectedRows);
-
-    setSelectedRowIds(selectedRowIds => [...selectedRowIds, selectedRows.id]);
-  }, []);
+  const handleSelectChange = useCallback(
+    selectedRowKeys => {
+      console.log('selectedRowKeys', selectedRowKeys);
+      setSelectedRowKeys(selectedRowKeys);
+    },
+    [setSelectedRowKeys, selectedRowKeys]
+  );
 
   const rowSelection = {
     onChange: handleSelectChange
@@ -59,7 +61,11 @@ export const CartTable = props => {
     <>
       <Row>
         <div style={{ marginBottom: 16, textAlign: 'right' }}>
-          <span style={{ marginRight: 10 }}>선택상품 0개</span>
+          <span style={{ marginRight: 10 }}>
+            {selectedRowKeys.length > 0
+              ? `선택 상품(${selectedRowKeys.length}개)`
+              : '선택 상품(0개)'}
+          </span>
           <Button>장바구니 비우기</Button>
         </div>
       </Row>

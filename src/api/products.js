@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getProducts = (_page = 1) => {
-  return axios.get(`http://localhost:4001/productItems`, {
+  return axios.get(`http://localhost:4000/productItems`, {
     params: {
       _page,
       _limit: 5,
@@ -12,4 +12,4 @@ export const getProducts = (_page = 1) => {
 };
 
 export const getAllProducts = () =>
-  axios.get(`http://localhost:4001/productItems`);
+  axios.get(`http://localhost:4000/productItems`);
