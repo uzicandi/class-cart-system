@@ -21,6 +21,8 @@ const GET_CARTED_ITEMS_ID = 'cart/GET_CARTED_ITEMS_ID';
 
 const GET_CARTED_ITEMS = 'cart/GET_CARTED_ITEMS';
 
+const GET_CARTED_ITEMS_EDIT = 'cart/GET_CARTED_ITEMS_EDIT';
+
 export const getProducts = _page =>
   createPromiseThunk(GET_PRODUCTS, productsApi.getProducts)(_page);
 
@@ -49,24 +51,35 @@ export const getCartedItemsId = () => dispatch => {
 };
 
 export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
-  // 코드 리팩토링 필요.. (ES6로)
-  const cartedItems = [];
-  if (cartedItemsId && all_products) {
-    for (let i = 0; i < cartedItemsId.length; i++) {
-      for (let j = 0; j < all_products.length; j++) {
-        if (cartedItemsId[i] === all_products[j].id) {
-          // cartedItem 배열 만들기
-          const newCarted = {
-            key: all_products[j].id,
-            id: all_products[j].id,
-            title: all_products[j].title,
-            displayPrice: all_products[j].price, // quantity 곱해주기
-            availableCoupon: all_products[j].availableCoupon
-          };
-          cartedItems.push(newCarted);
-        }
-      }
+  const newAllProducts = Object.assign([], all_products);
+  const filteredCart = newAllProducts.filter(product => {
+    if (
+      product.id === cartedItemsId[0] ||
+      product.id === cartedItemsId[1] ||
+      product.id === cartedItemsId[2]
+    ) {
+      return true;
     }
+  });
+  const cartedItems = [];
+  filteredCartAddObjects();
+  function filteredCartAddObjects() {
+    const mappedCart = Object.values(filteredCart).map(product => {
+      const newCarted = Object.assign(
+        {},
+        product,
+        {
+          quantity: {
+            id: product.id,
+            quantity: product.quantity || 1
+          }
+        },
+        { key: product.id },
+        { displayPrice: product.price * (product.quantity || 1) }
+      );
+      return newCarted;
+    });
+    cartedItems.push(mappedCart);
   }
 
   dispatch({
@@ -74,6 +87,14 @@ export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
     payload: {
       cartedItems
     }
+  });
+};
+
+export const getCartedItemsEdit = (item, quantity) => dispatch => {
+  console.log(item, quantity);
+  dispatch({
+    type: GET_CARTED_ITEMS_EDIT,
+    payload: { item, quantity }
   });
 };
 
@@ -109,7 +130,11 @@ export default function products(state = initialState, action) {
       });
     case GET_CARTED_ITEMS:
       return produce(state, draft => {
-        draft.cartedItems = action.payload.cartedItems;
+        draft.cartedItems = action.payload.cartedItems[0];
+      });
+    case GET_CARTED_ITEMS_EDIT:
+      return produce(state, draft => {
+        draft.cartedItemsEdit = action.payload; // 수정필요
       });
     default:
       return state;

@@ -19,6 +19,10 @@ export const CartTable = props => {
     onChange: handleSelectChange
   };
 
+  const handleInputNumberChange = useCallback((id, quantity) => {
+    console.log('handleInputNumberChange', id, quantity);
+  }, []);
+
   const columns = [
     {
       title: '상품 제목',
@@ -31,8 +35,13 @@ export const CartTable = props => {
       dataIndex: 'quantity',
       align: 'center',
       value: InputNumber,
-      render: quantity => (
-        <InputNumber style={{ width: '65px' }} min={1} defaultValue={1} />
+      render: key => (
+        <InputNumber
+          style={{ width: '65px' }}
+          min={1}
+          defaultValue={1}
+          onChange={num => handleInputNumberChange(num)}
+        />
       )
     },
     {
