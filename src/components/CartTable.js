@@ -4,7 +4,7 @@ import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
 
 export const CartTable = props => {
-  const dataSource = [];
+  const { dataSource } = props;
   const columns = [
     {
       title: '상품 제목',
