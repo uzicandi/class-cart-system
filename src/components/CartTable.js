@@ -1,10 +1,22 @@
-import React from 'react';
-import { Button, Table, InputNumber, Tag } from 'antd';
+import React, { useState, useCallback } from 'react';
+import { Button, Table, InputNumber, Tag, Row, Divider, Col } from 'antd';
 import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
 
 export const CartTable = props => {
+  const [selectedRowIds, setSelectedRowIds] = useState([]);
   const { dataSource } = props;
+
+  const handleSelectChange = useCallback(selectedRows => {
+    console.log('selectedRows', selectedRows);
+
+    setSelectedRowIds(selectedRowIds => [...selectedRowIds, selectedRows.id]);
+  }, []);
+
+  const rowSelection = {
+    onChange: handleSelectChange
+  };
+
   const columns = [
     {
       title: '상품 제목',
@@ -17,7 +29,7 @@ export const CartTable = props => {
       dataIndex: 'quantity',
       align: 'center',
       value: InputNumber,
-      render: quentity => (
+      render: quantity => (
         <InputNumber style={{ width: '65px' }} min={1} defaultValue={1} />
       )
     },
@@ -45,11 +57,20 @@ export const CartTable = props => {
   ];
   return (
     <>
-      <div style={{ marginBottom: 16, textAlign: 'right' }}>
-        <span style={{ marginRight: 10 }}>선택상품 0개</span>
-        <Button>장바구니 비우기</Button>
-      </div>
-      <Table columns={columns} dataSource={dataSource} pagination={false} />
+      <Row>
+        <div style={{ marginBottom: 16, textAlign: 'right' }}>
+          <span style={{ marginRight: 10 }}>선택상품 0개</span>
+          <Button>장바구니 비우기</Button>
+        </div>
+      </Row>
+      <Row>
+        <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={dataSource}
+          pagination={false}
+        />
+      </Row>
     </>
   );
 };

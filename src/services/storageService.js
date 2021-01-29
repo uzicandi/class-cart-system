@@ -4,19 +4,15 @@
 
 export const storageService = {
   getItem(key) {
-    console.log('getItem', localStorage);
     return localStorage.getItem(key);
   },
   setItem(key, value) {
-    console.log('setItem', localStorage);
     return localStorage.setItem(key, value);
   },
   removeItem(key) {
-    console.log('removeItem', localStorage);
     return localStorage.removeItem(key);
   },
   clear() {
-    console.log('clear', localStorage);
     return localStorage.clear();
   },
   checkCart(id) {

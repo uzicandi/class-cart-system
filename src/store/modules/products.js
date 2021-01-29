@@ -49,17 +49,26 @@ export const getCartedItemsId = () => dispatch => {
 };
 
 export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
-  // 여기에 all_products 가져올 수 있나?
+  // 코드 리팩토링 필요.. (ES6로)
   const cartedItems = [];
   if (cartedItemsId && all_products) {
     for (let i = 0; i < cartedItemsId.length; i++) {
       for (let j = 0; j < all_products.length; j++) {
         if (cartedItemsId[i] === all_products[j].id) {
-          cartedItems.push(all_products[j]);
+          // cartedItem 배열 만들기
+          const newCarted = {
+            key: all_products[j].id,
+            id: all_products[j].id,
+            title: all_products[j].title,
+            displayPrice: all_products[j].price, // quantity 곱해주기
+            availableCoupon: all_products[j].availableCoupon
+          };
+          cartedItems.push(newCarted);
         }
       }
     }
   }
+
   dispatch({
     type: GET_CARTED_ITEMS,
     payload: {

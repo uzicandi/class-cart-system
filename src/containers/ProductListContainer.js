@@ -13,11 +13,9 @@ function ProductListContainer() {
 
   useEffect(() => {
     dispatch(getProducts());
-    console.log(data);
   }, [dispatch]);
 
   useEffect(() => {
-    console.log('setCartItems', cartItems);
     if (storageService.getItem('carted-item')) {
       setCartItems(JSON.parse(storageService.getItem('carted-item')));
     }
