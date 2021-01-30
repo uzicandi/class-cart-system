@@ -18,9 +18,7 @@ const GET_ALL_PRODUCTS_ERROR = 'products/GET_ALL_PRODUCTS_ERROR';
 const SET_CURRENT_PAGE = 'products/SET_CURRENT_PAGE';
 
 const GET_CARTED_ITEMS_ID = 'cart/GET_CARTED_ITEMS_ID';
-
 const GET_CARTED_ITEMS = 'cart/GET_CARTED_ITEMS';
-
 const GET_CARTED_ITEMS_EDIT = 'cart/GET_CARTED_ITEMS_EDIT';
 
 export const getProducts = _page =>
@@ -79,7 +77,6 @@ export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
     return newCarted;
   });
   cartedItems.push(mappedCart);
-  console.log('mappedCart cartedItems', cartedItems);
   dispatch({
     type: GET_CARTED_ITEMS,
     payload: {

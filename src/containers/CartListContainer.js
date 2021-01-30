@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartPage from '../pages/CartPage';
-import { getCartedItemsId, getCartedItems } from '../store/modules/products';
+import { getCartedItems } from '../store/modules/products';
 import { storageService } from '../services/storageService';
 
 function CartListContainer() {

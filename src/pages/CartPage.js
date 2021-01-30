@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Row, Col, Button, Divider } from 'antd';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { Row, Col, Divider } from 'antd';
 import { PageTitle } from '../components/PageTitle';
 import { CartTable } from '../components/CartTable';
-import { getCartedItemsEdit, getCartedItems } from '../store/modules/products';
-import { storageService } from '../services/storageService';
+import { getCartedItemsEdit } from '../store/modules/products';
+import { CartFinalPriceTable } from '../components/CartFinalPriceTable';
+
 function CartPage(props) {
   const { cartedItems } = props;
   const dispatch = useDispatch();
@@ -22,14 +23,19 @@ function CartPage(props) {
           <PageTitle title="장바구니" />
         </Col>
       </Row>
-      <Row style={{ marginBottom: 50 }}>
-        <CartTable
-          dataSource={cartedItems}
-          inputNumberChange={inputNumberChange}
-        />
+      <Row style={{ marginBottom: 50 }} justify="center">
+        <Col span={20}>
+          <CartTable
+            dataSource={cartedItems}
+            inputNumberChange={inputNumberChange}
+          />
+        </Col>
       </Row>
-      <Row>
-        <Divider orientation="left">최종 결제 금액</Divider>
+      <Row justify="center">
+        <Col span={20}>
+          <Divider orientation="left">최종 결제 금액</Divider>
+          <CartFinalPriceTable />
+        </Col>
       </Row>
     </>
   );

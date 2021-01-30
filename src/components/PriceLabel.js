@@ -1,6 +1,6 @@
 import React from 'react';
 import Text from 'antd/lib/typography/Text';
-import Title from 'antd/lib/skeleton/Title';
+import Title from 'antd/lib/typography/Title';
 
 /**
  * @description 가격 표시 Label
@@ -11,11 +11,12 @@ import Title from 'antd/lib/skeleton/Title';
 
 export const PriceLabel = props => {
   const { value, strong = false, large = false } = props;
+
   if (large) {
     return (
       <>
-        <Title level={2} type="danger">
-          {`${value}`}
+        <Title level={5} type="danger">
+          {`${value.toLocaleString()}`}
           <small style={{ marginLeft: 3 }}>원</small>
         </Title>
       </>
@@ -23,7 +24,7 @@ export const PriceLabel = props => {
   }
   return (
     <>
-      <Text strong={strong}>{`${value}`}</Text>
+      <Text strong={strong}>{`${value.toLocaleString()}`}</Text>
       <Text style={{ marginLeft: 2 }}>원</Text>
     </>
   );

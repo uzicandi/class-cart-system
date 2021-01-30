@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Button, Table, InputNumber, Tag, Row, Divider, Col } from 'antd';
+import { Button, Table, InputNumber, Tag } from 'antd';
 import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
 
@@ -10,7 +10,6 @@ export const CartTable = props => {
   const handleSelectChange = useCallback(
     // checkbox 선택
     selectedRowKeys => {
-      console.log('handleSelectChange');
       setSelectedRowKeys(selectedRowKeys);
     },
     [setSelectedRowKeys, selectedRowKeys]
@@ -72,24 +71,20 @@ export const CartTable = props => {
   ];
   return (
     <>
-      <Row>
-        <div style={{ marginBottom: 16, textAlign: 'right' }}>
-          <span style={{ marginRight: 10 }}>
-            {selectedRowKeys.length > 0
-              ? `선택 상품(${selectedRowKeys.length}개)`
-              : '선택 상품(0개)'}
-          </span>
-          <Button>장바구니 비우기</Button>
-        </div>
-      </Row>
-      <Row>
-        <Table
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={dataSource}
-          pagination={false}
-        />
-      </Row>
+      <div style={{ marginBottom: 16, textAlign: 'right' }}>
+        <span style={{ marginRight: 10 }}>
+          {selectedRowKeys.length > 0
+            ? `선택 상품(${selectedRowKeys.length}개)`
+            : '선택 상품(0개)'}
+        </span>
+        <Button>장바구니 비우기</Button>
+      </div>
+      <Table
+        rowSelection={rowSelection}
+        columns={columns}
+        dataSource={dataSource}
+        pagination={false}
+      />
     </>
   );
 };

@@ -13,3 +13,5 @@ export const getProducts = (_page = 1) => {
 
 export const getAllProducts = () =>
   axios.get(`http://localhost:4000/productItems`);
+
+export const getAllCoupons = () => axios.get(`http://localhost:4000/coupons`);
