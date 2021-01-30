@@ -21,14 +21,26 @@ const GET_CARTED_ITEMS_ID = 'cart/GET_CARTED_ITEMS_ID';
 const GET_CARTED_ITEMS = 'cart/GET_CARTED_ITEMS';
 const GET_CARTED_ITEMS_EDIT = 'cart/GET_CARTED_ITEMS_EDIT';
 
+const POST_PAYMENT_CARTED_ITEMS = 'cart/POST_PAYMENT_CARTED_ITEMS';
+
+/**
+ * @desc 페이지당 상품 정보 가져오기
+ */
 export const getProducts = _page =>
   createPromiseThunk(GET_PRODUCTS, productsApi.getProducts)(_page);
 
+/**
+ * @desc 모든 상품 정보 가져오기
+ */
 export const getAllProducts = createPromiseThunk(
   GET_ALL_PRODUCTS,
   productsApi.getAllProducts
 );
 
+/**
+ * @desc 페이지 이동
+ * @param {현재 페이지} current_page
+ */
 export const setCurrentPage = current_page => dispatch => {
   dispatch({
     type: SET_CURRENT_PAGE,
@@ -38,6 +50,9 @@ export const setCurrentPage = current_page => dispatch => {
   });
 };
 
+/**
+ * @desc localStorage에 담겨있는 아이템 ID 가져오기
+ */
 export const getCartedItemsId = () => dispatch => {
   const cartedItemsId = JSON.parse(storageService.getItem('carted-item'));
   dispatch({
@@ -48,6 +63,9 @@ export const getCartedItemsId = () => dispatch => {
   });
 };
 
+/**
+ * @desc id를 통해 cart에 보여줄 item 배열 만들기
+ */
 export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
   const newAllProducts = Object.assign([], all_products);
   const filteredCart = newAllProducts.filter(product => {
@@ -85,12 +103,24 @@ export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
   });
 };
 
+/**
+ * @desc 장바구니 수량 및 가격 변경
+ * @param {상품 id} id
+ * @param {상품 수량} quantity
+ */
 export const getCartedItemsEdit = (id, quantity) => dispatch => {
   // id로 해당 row 찾아서 quatity 넣기, 전체 state도 있어야함
   dispatch({
     type: GET_CARTED_ITEMS_EDIT,
     payload: id,
     quantity
+  });
+};
+
+export const postPaymentCartedItems = (ids, rows) => dispatch => {
+  dispatch({
+    type: POST_PAYMENT_CARTED_ITEMS,
+    payload: { ids, rows }
   });
 };
 
@@ -144,6 +174,10 @@ export default function products(state = initialState, action) {
       return produce(state, draft => {
         draft.cartedItems[key].quantity = quantityObj;
         draft.cartedItems[key].displayPrice = newDisplayPrice;
+      });
+    case POST_PAYMENT_CARTED_ITEMS:
+      return produce(state, draft => {
+        draft.paymentCartedItems = action.payload;
       });
     default:
       return state;

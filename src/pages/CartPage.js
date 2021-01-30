@@ -1,13 +1,16 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Divider } from 'antd';
 import { PageTitle } from '../components/PageTitle';
 import { CartTable } from '../components/CartTable';
 import { getCartedItemsEdit } from '../store/modules/products';
 import { CartFinalPriceTable } from '../components/CartFinalPriceTable';
+import { paymentTableSelector } from '../store/selector';
 
 function CartPage(props) {
   const { cartedItems } = props;
+  //const { paymentDataSource, recommend } = useSelector(paymentTableSelector);
+
   const dispatch = useDispatch();
   const inputNumberChange = useCallback(
     (id, quantity) => {

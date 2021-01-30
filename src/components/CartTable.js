@@ -1,21 +1,29 @@
 import React, { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Table, InputNumber, Tag } from 'antd';
 import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
+import { postPaymentCartedItems } from '../store/modules/products';
 
 export const CartTable = props => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { dataSource, inputNumberChange } = props;
 
+  const dispatch = useDispatch();
+
   const handleSelectChange = useCallback(
     // checkbox 선택
-    selectedRowKeys => {
+    (selectedRowKeys, selectedRows) => {
       setSelectedRowKeys(selectedRowKeys);
+      // 최종결제 금액에 추가하는 함수
+      dispatch(postPaymentCartedItems(selectedRowKeys, selectedRows));
     },
+
     [setSelectedRowKeys, selectedRowKeys]
   );
 
   const rowSelection = {
+    selectedRowKeys,
     onChange: handleSelectChange
   };
 

@@ -9,6 +9,9 @@ const GET_ALL_COUPONS = 'coupon/GET_ALL_COUPONS';
 const GET_ALL_COUPONS_SUCCESS = 'coupon/GET_ALL_COUPONS_SUCCESS';
 const GET_ALL_COUPONS_ERROR = 'coupon/GET_ALL_COUPONS_ERROR';
 
+/**
+ * @desc 모든 쿠폰 가져오기
+ */
 export const getAllCoupons = createPromiseThunk(
   GET_ALL_COUPONS,
   productsApi.getAllCoupons
