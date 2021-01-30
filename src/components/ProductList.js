@@ -6,12 +6,11 @@ import { PageTitle } from './PageTitle';
 function ProductList(props) {
   const itemList = props.data;
   const setCartFn = props.setCartFn;
-  console.log(itemList);
   return (
     <>
       <Row>
         <Col span={24}>
-          <PageTitle title="상품목록" />
+          <PageTitle title="생품목록" />
         </Col>
       </Row>
       <Row>

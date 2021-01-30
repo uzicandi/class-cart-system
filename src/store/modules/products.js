@@ -62,25 +62,23 @@ export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
     }
   });
   const cartedItems = [];
-  filteredCartAddObjects();
-  function filteredCartAddObjects() {
-    const mappedCart = Object.values(filteredCart).map(product => {
-      const newCarted = Object.assign(
-        {},
-        product,
-        {
-          quantity: {
-            id: product.id,
-            quantity: product.quantity || 1
-          }
-        },
-        { key: product.id },
-        { displayPrice: product.price * (product.quantity || 1) }
-      );
-      return newCarted;
-    });
-    cartedItems.push(mappedCart);
-  }
+
+  const mappedCart = Object.values(filteredCart).map(product => {
+    const newCarted = Object.assign(
+      {},
+      product,
+      {
+        quantity: {
+          id: product.id,
+          quantity: product.quantity || 1
+        }
+      },
+      { key: product.id },
+      { displayPrice: product.price * (product.quantity || 1) }
+    );
+    return newCarted;
+  });
+  cartedItems.push(mappedCart);
 
   dispatch({
     type: GET_CARTED_ITEMS,
@@ -90,11 +88,12 @@ export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
   });
 };
 
-export const getCartedItemsEdit = (item, quantity) => dispatch => {
-  console.log(item, quantity);
+export const getCartedItemsEdit = (id, quantity) => dispatch => {
+  // id로 해당 row 찾아서 quatity 넣기, 전체 state도 있어야함
   dispatch({
     type: GET_CARTED_ITEMS_EDIT,
-    payload: { item, quantity }
+    payload: id,
+    quantity
   });
 };
 
@@ -133,8 +132,17 @@ export default function products(state = initialState, action) {
         draft.cartedItems = action.payload.cartedItems[0];
       });
     case GET_CARTED_ITEMS_EDIT:
+      const { id, quantity } = action.payload;
+
+      const key = Object.values(state.cartedItems).findIndex(
+        product => product.id === id
+      );
+      const quantityObj = {
+        id: id,
+        quantity: quantity
+      };
       return produce(state, draft => {
-        draft.cartedItemsEdit = action.payload; // 수정필요
+        draft.cartedItems[key].quantity = quantityObj; // 수정필요
       });
     default:
       return state;

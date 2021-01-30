@@ -2,15 +2,17 @@ import React, { useState, useCallback } from 'react';
 import { Button, Table, InputNumber, Tag, Row, Divider, Col } from 'antd';
 import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
+import { useDispatch } from 'react-redux';
 
 export const CartTable = props => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const { dataSource } = props;
+  const { dataSource, onChange } = props;
+  const dispatch = useDispatch();
 
   const handleSelectChange = useCallback(
     selectedRowKeys => {
-      console.log('selectedRowKeys', selectedRowKeys);
       setSelectedRowKeys(selectedRowKeys);
+      // dispatch cartItem 하는거
     },
     [setSelectedRowKeys, selectedRowKeys]
   );
@@ -19,9 +21,12 @@ export const CartTable = props => {
     onChange: handleSelectChange
   };
 
-  const handleInputNumberChange = useCallback((id, quantity) => {
-    console.log('handleInputNumberChange', id, quantity);
-  }, []);
+  const handleInputNumberChange = useCallback(
+    (id, quantity) => {
+      onChange(id, quantity);
+    },
+    [onChange]
+  );
 
   const columns = [
     {
@@ -35,18 +40,18 @@ export const CartTable = props => {
       dataIndex: 'quantity',
       align: 'center',
       value: InputNumber,
-      render: key => (
+      render: quantity => (
         <InputNumber
           style={{ width: '65px' }}
           min={1}
-          defaultValue={1}
-          onChange={num => handleInputNumberChange(num)}
+          defaultValue={quantity.quantity}
+          onChange={num => handleInputNumberChange(quantity.id, num)}
         />
       )
     },
     {
       title: '가격',
-      dataIndex: 'displayPrice',
+      dataIndex: 'price',
       align: 'center',
       render: displayPrice => <PriceLabel value={displayPrice} strong={true} />
     },
