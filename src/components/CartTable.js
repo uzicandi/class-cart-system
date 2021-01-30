@@ -2,17 +2,16 @@ import React, { useState, useCallback } from 'react';
 import { Button, Table, InputNumber, Tag, Row, Divider, Col } from 'antd';
 import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
-import { useDispatch } from 'react-redux';
 
 export const CartTable = props => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const { dataSource, onChange } = props;
-  const dispatch = useDispatch();
+  const { dataSource, inputNumberChange } = props;
 
   const handleSelectChange = useCallback(
+    // checkbox 선택
     selectedRowKeys => {
+      console.log('handleSelectChange');
       setSelectedRowKeys(selectedRowKeys);
-      // dispatch cartItem 하는거
     },
     [setSelectedRowKeys, selectedRowKeys]
   );
@@ -23,9 +22,9 @@ export const CartTable = props => {
 
   const handleInputNumberChange = useCallback(
     (id, quantity) => {
-      onChange(id, quantity);
+      inputNumberChange(id, quantity);
     },
-    [onChange]
+    [inputNumberChange]
   );
 
   const columns = [
@@ -51,7 +50,7 @@ export const CartTable = props => {
     },
     {
       title: '가격',
-      dataIndex: 'price',
+      dataIndex: 'displayPrice',
       align: 'center',
       render: displayPrice => <PriceLabel value={displayPrice} strong={true} />
     },

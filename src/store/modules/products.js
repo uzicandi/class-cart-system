@@ -79,7 +79,7 @@ export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
     return newCarted;
   });
   cartedItems.push(mappedCart);
-
+  console.log('mappedCart cartedItems', cartedItems);
   dispatch({
     type: GET_CARTED_ITEMS,
     payload: {
@@ -133,7 +133,9 @@ export default function products(state = initialState, action) {
       });
     case GET_CARTED_ITEMS_EDIT:
       const { id, quantity } = action.payload;
-
+      const cartedItemById = Object.values(state.cartedItems).filter(
+        product => product.id === id
+      );
       const key = Object.values(state.cartedItems).findIndex(
         product => product.id === id
       );
@@ -141,8 +143,10 @@ export default function products(state = initialState, action) {
         id: id,
         quantity: quantity
       };
+      const newDisplayPrice = cartedItemById[0].price * quantity;
       return produce(state, draft => {
-        draft.cartedItems[key].quantity = quantityObj; // 수정필요
+        draft.cartedItems[key].quantity = quantityObj;
+        draft.cartedItems[key].displayPrice = newDisplayPrice;
       });
     default:
       return state;

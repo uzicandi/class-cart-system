@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import CartPage from '../pages/CartPage';
 import { getCartedItemsId, getCartedItems } from '../store/modules/products';
 import { storageService } from '../services/storageService';
-import { shallowEqual } from '@babel/types';
 
 function CartListContainer() {
-  const all_products = useSelector(state => state.products.all_products.data);
   const dispatch = useDispatch();
-
+  const all_products = useSelector(state => state.products.all_products.data);
+  const cartedItems = useSelector(state => state.products.cartedItems);
+  console.log('cartedItems', cartedItems);
   useEffect(() => {
     if (storageService.getItem('carted-item')) {
       dispatch(
@@ -20,7 +20,7 @@ function CartListContainer() {
     }
   }, [storageService.setItem]);
 
-  return <CartPage />;
+  return <CartPage cartedItems={cartedItems} />;
 }
 
 export default CartListContainer;

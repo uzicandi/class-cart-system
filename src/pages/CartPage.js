@@ -1,15 +1,14 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col, Button, Divider } from 'antd';
 import { PageTitle } from '../components/PageTitle';
 import { CartTable } from '../components/CartTable';
-import { getCartedItemsEdit } from '../store/modules/products';
-
+import { getCartedItemsEdit, getCartedItems } from '../store/modules/products';
+import { storageService } from '../services/storageService';
 function CartPage(props) {
-  const cartedItems = useSelector(state => state.products.cartedItems);
-  console.log('cartedItems', cartedItems);
+  const { cartedItems } = props;
   const dispatch = useDispatch();
-  const handleCartTableChange = useCallback(
+  const inputNumberChange = useCallback(
     (id, quantity) => {
       dispatch(getCartedItemsEdit({ id, quantity }));
     },
@@ -24,7 +23,10 @@ function CartPage(props) {
         </Col>
       </Row>
       <Row style={{ marginBottom: 50 }}>
-        <CartTable dataSource={cartedItems} onChange={handleCartTableChange} />
+        <CartTable
+          dataSource={cartedItems}
+          inputNumberChange={inputNumberChange}
+        />
       </Row>
       <Row>
         <Divider orientation="left">최종 결제 금액</Divider>
