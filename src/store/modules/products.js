@@ -120,7 +120,7 @@ export const getCartedItemsEdit = (id, quantity) => dispatch => {
 export const postPaymentCartedItems = (ids, rows) => dispatch => {
   dispatch({
     type: POST_PAYMENT_CARTED_ITEMS,
-    payload: { ids, rows }
+    payload: rows
   });
 };
 

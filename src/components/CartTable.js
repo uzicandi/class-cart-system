@@ -8,6 +8,7 @@ import { postPaymentCartedItems } from '../store/modules/products';
 export const CartTable = props => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { dataSource, inputNumberChange } = props;
+  // const {paymentDataSource, recommend} = useSelector(finalPaymentSelector);
 
   const dispatch = useDispatch();
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartPage from '../pages/CartPage';
 import { getCartedItems } from '../store/modules/products';
@@ -8,7 +8,7 @@ function CartListContainer() {
   const dispatch = useDispatch();
   const all_products = useSelector(state => state.products.all_products.data);
   const cartedItems = useSelector(state => state.products.cartedItems);
-  console.log('cartedItems', cartedItems);
+
   useEffect(() => {
     if (storageService.getItem('carted-item')) {
       dispatch(

@@ -5,11 +5,11 @@ import { PageTitle } from '../components/PageTitle';
 import { CartTable } from '../components/CartTable';
 import { getCartedItemsEdit } from '../store/modules/products';
 import { CartFinalPriceTable } from '../components/CartFinalPriceTable';
-import { paymentTableSelector } from '../store/selector';
+//import { finalPaymentSelector } from '../store/selector';
 
 function CartPage(props) {
   const { cartedItems } = props;
-  //const { paymentDataSource, recommend } = useSelector(paymentTableSelector);
+  //const { paymentDataSource, recommend } = useSelector(finalPaymentSelector);
 
   const dispatch = useDispatch();
   const inputNumberChange = useCallback(
