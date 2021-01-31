@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartPage from '../pages/CartPage';
-import { getCartedItems, postPaymentCartedItems } from '../store/modules/cart';
+import { getCartedItems, fetchPaymentCartedItems } from '../store/modules/cart';
 import { storageService } from '../services/storageService';
 
 function CartListContainer() {
@@ -17,7 +17,7 @@ function CartListContainer() {
           all_products
         )
       );
-      dispatch(postPaymentCartedItems({ ids: [] }));
+      dispatch(fetchPaymentCartedItems({ ids: [] }));
     }
   }, [all_products, dispatch]);
 

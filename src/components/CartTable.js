@@ -4,7 +4,7 @@ import { Button, Table, InputNumber, Tag } from 'antd';
 import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
 import {
-  postPaymentCartedItems,
+  fetchPaymentCartedItems,
   deleteAllCartedItems
 } from '../store/modules/cart';
 import { ConfirmModal } from './ConfirmModal';
@@ -20,7 +20,7 @@ export const CartTable = props => {
     (selectedRowKeys, selectedRows) => {
       setSelectedRowKeys(selectedRowKeys);
       // 최종결제 금액에 추가하는 함수
-      dispatch(postPaymentCartedItems(selectedRowKeys, selectedRows));
+      dispatch(fetchPaymentCartedItems(selectedRowKeys, selectedRows));
     },
     [dispatch, setSelectedRowKeys]
   );

@@ -6,8 +6,7 @@ const GET_CARTED_ITEMS_ID = 'cart/GET_CARTED_ITEMS_ID';
 const GET_CARTED_ITEMS = 'cart/GET_CARTED_ITEMS';
 const GET_CARTED_ITEMS_EDIT = 'cart/GET_CARTED_ITEMS_EDIT';
 
-const POST_PAYMENT_CARTED_ITEMS = 'cart/POST_PAYMENT_CARTED_ITEMS';
-const GET_PAYMENT_CARTED_ITEMS = 'cart/GET_PAYMENT_CARTED_ITEMS';
+const FETCH_PAYMENT_CARTED_ITEMS = 'cart/FETCH_PAYMENT_CARTED_ITEMS';
 const DELETE_ALL_CARTED_ITEMS = 'cart/DELETE_ALL_CARTED_ITEMS';
 
 /**
@@ -82,17 +81,10 @@ export const getCartedItemsEdit = (id, quantity) => dispatch => {
  * @param {장바구니에서 선택한 ID 배열} ids
  * @param {장바구니에서 선택한 ROW 배열} rows
  */
-export const postPaymentCartedItems = (ids, rows) => dispatch => {
+export const fetchPaymentCartedItems = (ids, rows) => dispatch => {
   dispatch({
-    type: POST_PAYMENT_CARTED_ITEMS,
+    type: FETCH_PAYMENT_CARTED_ITEMS,
     payload: rows
-  });
-};
-
-export const getPaymentCartedItems = ids => dispatch => {
-  dispatch({
-    type: GET_PAYMENT_CARTED_ITEMS,
-    payload: ids
   });
 };
 
@@ -134,11 +126,7 @@ export default function cart(state = initialState, action) {
         draft.cartedItems[key].quantity = quantityObj;
         draft.cartedItems[key].displayPrice = newDisplayPrice;
       });
-    case GET_PAYMENT_CARTED_ITEMS:
-      return produce(state, draft => {
-        draft.paymentCartedItems = action.payload.ids;
-      });
-    case POST_PAYMENT_CARTED_ITEMS:
+    case FETCH_PAYMENT_CARTED_ITEMS:
       return produce(state, draft => {
         draft.paymentCartedItems = action.payload;
       });
