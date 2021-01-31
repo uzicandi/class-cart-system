@@ -6,6 +6,7 @@ import {
   getAllProducts,
   setCurrentPage
 } from '../store/modules/products';
+import { LoadingSpin } from '../components/LoadingSpin';
 
 function PagingListContainer() {
   const { data, loading, error } = useSelector(
@@ -23,9 +24,8 @@ function PagingListContainer() {
     dispatch(setCurrentPage(page));
   };
 
-  if (loading) return <div>로딩중...</div>;
-  if (error) return <div>에러 발생!</div>;
-  if (!data) return null;
+  if (loading) return <LoadingSpin />;
+  if (!data) return <LoadingSpin />;
 
   return (
     <PagingList

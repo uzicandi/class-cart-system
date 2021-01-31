@@ -8,6 +8,7 @@ import {
   deleteAllCartedItems
 } from '../store/modules/cart';
 import { storageService } from '../services/storageService';
+import { ConfirmModal } from './ConfirmModal';
 
 export const CartTable = props => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -39,10 +40,15 @@ export const CartTable = props => {
   );
 
   const cleanAllCarts = useCallback(() => {
-    // 삭제하시겠습니까? modal alert
-    //storageService.removeItem('carted-item');
     dispatch(deleteAllCartedItems());
-  }, [storageService.removeItem]);
+  }, [storageService.removeItem, dispatch]);
+
+  const cleanAllCartsAlert = useCallback(() => {
+    ConfirmModal(
+      '장바구니에 있는 모든 상품을 삭제하시겠습니까?',
+      cleanAllCarts
+    );
+  }, [cleanAllCarts]);
 
   const columns = [
     {
@@ -95,7 +101,7 @@ export const CartTable = props => {
             ? `선택 상품(${selectedRowKeys.length}개)`
             : '선택 상품(0개)'}
         </span>
-        <Button onClick={cleanAllCarts} disabled={!dataSource}>
+        <Button onClick={cleanAllCartsAlert} disabled={!dataSource}>
           장바구니 비우기
         </Button>
       </div>

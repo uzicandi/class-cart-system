@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../store/modules/products';
 import ProductList from '../components/ProductList';
 import { storageService } from '../services/storageService';
+import { InfoModal } from '../components/InfoModal';
+import { LoadingSpin } from '../components/LoadingSpin';
 
 function ProductListContainer() {
   const [cartItems, setCartItems] = useState([]);
@@ -32,7 +34,7 @@ function ProductListContainer() {
         );
         setCartItems([...cartItems.filter(value => value !== id)]);
       } else if (cartItems.length >= 3) {
-        console.log('modal alert'); // infoModal
+        InfoModal('warning', '장바구니에는 3개 이상 담을 수 없습니다.');
       } else {
         cartItems.push(id);
         storageService.setItem('carted-item', JSON.stringify([...cartItems]));
@@ -41,9 +43,9 @@ function ProductListContainer() {
     [cartItems, setCartItems, storageService.setItem, storageService.getItem]
   );
 
-  if (loading) return <div>로딩중...</div>;
-  if (error) return <div>error</div>;
-  if (!data) return <div>123</div>;
+  if (loading) return <LoadingSpin />;
+  if (error) return <LoadingSpin />;
+  if (!data) return <LoadingSpin />;
   return <ProductList data={data} setCartFn={handleProductCardClick} />;
 }
 
