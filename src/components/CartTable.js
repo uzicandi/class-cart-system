@@ -3,13 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button, Table, InputNumber, Tag } from 'antd';
 import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
-import { postPaymentCartedItems } from '../store/modules/cart';
+import {
+  postPaymentCartedItems,
+  deleteAllCartedItems
+} from '../store/modules/cart';
 import { storageService } from '../services/storageService';
 
 export const CartTable = props => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { dataSource, inputNumberChange } = props;
-  const all_products = useSelector(state => state.products.all_products.data);
 
   const dispatch = useDispatch();
 
@@ -39,6 +41,7 @@ export const CartTable = props => {
   const cleanAllCarts = useCallback(() => {
     // 삭제하시겠습니까? modal alert
     //storageService.removeItem('carted-item');
+    dispatch(deleteAllCartedItems());
   }, [storageService.removeItem]);
 
   const columns = [

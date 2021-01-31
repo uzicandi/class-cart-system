@@ -1,9 +1,4 @@
-import * as productsApi from '../../api/products';
-import {
-  reducerUtils,
-  createPromiseThunk,
-  handleAsyncActions
-} from '../../lib/asyncUtils';
+import { reducerUtils } from '../../lib/asyncUtils';
 import produce from 'immer';
 import { storageService } from '../../services/storageService';
 
@@ -82,10 +77,22 @@ export const getCartedItemsEdit = (id, quantity) => dispatch => {
   });
 };
 
+/**
+ *
+ * @param {장바구니에서 선택한 ID 배열} ids
+ * @param {장바구니에서 선택한 ROW 배열} rows
+ */
 export const postPaymentCartedItems = (ids, rows) => dispatch => {
   dispatch({
     type: POST_PAYMENT_CARTED_ITEMS,
     payload: rows
+  });
+};
+
+export const deleteAllCartedItems = () => dispatch => {
+  storageService.removeItem('carted-item');
+  dispatch({
+    type: DELETE_ALL_CARTED_ITEMS
   });
 };
 
@@ -123,6 +130,10 @@ export default function cart(state = initialState, action) {
     case POST_PAYMENT_CARTED_ITEMS:
       return produce(state, draft => {
         draft.paymentCartedItems = action.payload;
+      });
+    case DELETE_ALL_CARTED_ITEMS:
+      return produce(state, draft => {
+        draft.cartedItems = [];
       });
     default:
       return state;
