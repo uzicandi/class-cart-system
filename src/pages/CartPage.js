@@ -8,7 +8,6 @@ import { CartFinalPriceTable } from '../components/CartFinalPriceTable';
 
 function CartPage(props) {
   const { cartedItems } = props;
-
   const dispatch = useDispatch();
   const inputNumberChange = useCallback(
     (id, quantity) => {

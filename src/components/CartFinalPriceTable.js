@@ -60,7 +60,11 @@ export const CartFinalPriceTable = () => {
             쿠폰 미적용
           </Radio>
           {all_coupons.map(coupon => (
-            <Radio value={coupon.type} disabled={isNotRecommend}>
+            <Radio
+              key={coupon.type}
+              value={coupon.type}
+              disabled={isNotRecommend}
+            >
               {coupon.title}
             </Radio>
           ))}

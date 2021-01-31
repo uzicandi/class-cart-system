@@ -1,7 +1,7 @@
 import React from 'react';
-import { Row, Col, Empty, Pagination } from 'antd';
+import { Row, Col, Pagination } from 'antd';
 
-function PagingList({ total, currentPage, onSetCurrentPage }) {
+function PagingList({ total, onSetCurrentPage }) {
   return (
     <Row style={{ marginTop: '15px' }}>
       <Col span={24} style={{ textAlign: 'center' }}>

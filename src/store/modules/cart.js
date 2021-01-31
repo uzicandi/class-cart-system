@@ -7,7 +7,7 @@ const GET_CARTED_ITEMS = 'cart/GET_CARTED_ITEMS';
 const GET_CARTED_ITEMS_EDIT = 'cart/GET_CARTED_ITEMS_EDIT';
 
 const POST_PAYMENT_CARTED_ITEMS = 'cart/POST_PAYMENT_CARTED_ITEMS';
-
+const GET_PAYMENT_CARTED_ITEMS = 'cart/GET_PAYMENT_CARTED_ITEMS';
 const DELETE_ALL_CARTED_ITEMS = 'cart/DELETE_ALL_CARTED_ITEMS';
 
 /**
@@ -89,6 +89,13 @@ export const postPaymentCartedItems = (ids, rows) => dispatch => {
   });
 };
 
+export const getPaymentCartedItems = ids => dispatch => {
+  dispatch({
+    type: GET_PAYMENT_CARTED_ITEMS,
+    payload: ids
+  });
+};
+
 export const deleteAllCartedItems = () => dispatch => {
   storageService.removeItem('carted-item');
   dispatch({
@@ -126,6 +133,10 @@ export default function cart(state = initialState, action) {
       return produce(state, draft => {
         draft.cartedItems[key].quantity = quantityObj;
         draft.cartedItems[key].displayPrice = newDisplayPrice;
+      });
+    case GET_PAYMENT_CARTED_ITEMS:
+      return produce(state, draft => {
+        draft.paymentCartedItems = action.payload.ids;
       });
     case POST_PAYMENT_CARTED_ITEMS:
       return produce(state, draft => {

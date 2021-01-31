@@ -7,7 +7,7 @@ export const finalPaymentSelector = state => {
     rateDiscountPrice: 0,
     amountDiscountPrice: 0
   };
-  const paymentData = state.cart.paymentCartedItems;
+  const paymentData = state.cart.cartedItems;
   const all_coupons = state.coupons.all_coupons.data;
   let discountRate = '';
   let discountAmount = '';
@@ -19,11 +19,13 @@ export const finalPaymentSelector = state => {
       } else if (coupon.type === 'amount') {
         return (discountAmount = coupon.discountAmount);
       }
+      return all_coupons;
     });
 
     paymentData.map(product => {
       // 수량 정의
       const quantity = product.quantity.quantity;
+
       // 전체 금액
       priceObject.totalPrice += product.price * quantity;
 
@@ -43,6 +45,7 @@ export const finalPaymentSelector = state => {
       ) {
         recommend.recommend = 'amount';
       }
+      return paymentData;
     });
   }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag, Icon, Tooltip } from 'antd';
+import { Tag, Tooltip } from 'antd';
 
 export const CouponTag = props => {
   const { label, color, tooltip } = props;

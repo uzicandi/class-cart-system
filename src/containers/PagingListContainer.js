@@ -9,9 +9,7 @@ import {
 import { LoadingSpin } from '../components/LoadingSpin';
 
 function PagingListContainer() {
-  const { data, loading, error } = useSelector(
-    state => state.products.all_products
-  );
+  const { data, loading } = useSelector(state => state.products.all_products);
   const current_page = useSelector(state => state.products.current_page);
   const dispatch = useDispatch();
 

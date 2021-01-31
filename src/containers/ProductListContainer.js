@@ -21,7 +21,7 @@ function ProductListContainer() {
     if (storageService.getItem('carted-item')) {
       setCartItems(JSON.parse(storageService.getItem('carted-item')));
     }
-  }, [setCartItems, storageService.setItem]);
+  }, [setCartItems]);
 
   const handleProductCardClick = useCallback(
     id => {
@@ -40,7 +40,7 @@ function ProductListContainer() {
         storageService.setItem('carted-item', JSON.stringify([...cartItems]));
       }
     },
-    [cartItems, setCartItems, storageService.setItem, storageService.getItem]
+    [cartItems, setCartItems]
   );
 
   if (loading) return <LoadingSpin />;

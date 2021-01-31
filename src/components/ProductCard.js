@@ -15,7 +15,7 @@ export const ProductCard = props => {
     if (storageService.checkCart(id)) {
       setCarted(true);
     }
-  }, [onClick]);
+  }, [onClick, id]);
 
   const handleIconClick = useCallback(
     id => {

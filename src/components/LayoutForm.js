@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import { Layout } from 'antd';
 import { LayoutHeader } from './LayoutHeader';
 

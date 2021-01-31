@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import ProductPage from './pages/ProductPage';
-import CartPage from './pages/CartPage';
 import { PRODUCTS_LIST_PATH } from './routes/const';
 import { CART_PATH } from './routes/const';
 import CartListContainer from './containers/CartListContainer';

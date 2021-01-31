@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button, Table, InputNumber, Tag } from 'antd';
 import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
@@ -7,7 +7,6 @@ import {
   postPaymentCartedItems,
   deleteAllCartedItems
 } from '../store/modules/cart';
-import { storageService } from '../services/storageService';
 import { ConfirmModal } from './ConfirmModal';
 
 export const CartTable = props => {
@@ -23,8 +22,7 @@ export const CartTable = props => {
       // 최종결제 금액에 추가하는 함수
       dispatch(postPaymentCartedItems(selectedRowKeys, selectedRows));
     },
-
-    [setSelectedRowKeys, selectedRowKeys]
+    [dispatch, setSelectedRowKeys]
   );
 
   const rowSelection = {
@@ -41,7 +39,7 @@ export const CartTable = props => {
 
   const cleanAllCarts = useCallback(() => {
     dispatch(deleteAllCartedItems());
-  }, [storageService.removeItem, dispatch]);
+  }, [dispatch]);
 
   const cleanAllCartsAlert = useCallback(() => {
     ConfirmModal(
@@ -66,7 +64,7 @@ export const CartTable = props => {
         <InputNumber
           style={{ width: '65px' }}
           min={1}
-          defaultValue={quantity.quantity}
+          defaultValue={1}
           onChange={num => handleInputNumberChange(quantity.id, num)}
         />
       )

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartPage from '../pages/CartPage';
-import { getCartedItems } from '../store/modules/cart';
+import { getCartedItems, postPaymentCartedItems } from '../store/modules/cart';
 import { storageService } from '../services/storageService';
 
 function CartListContainer() {
@@ -17,8 +17,9 @@ function CartListContainer() {
           all_products
         )
       );
+      dispatch(postPaymentCartedItems({ ids: [] }));
     }
-  }, [storageService.getItem, storageService.removeItem]);
+  }, [all_products, dispatch]);
 
   return <CartPage cartedItems={cartedItems} />;
 }

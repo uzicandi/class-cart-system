@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Empty, Pagination } from 'antd';
+import { Row, Col } from 'antd';
 import { ProductCard } from './ProductCard';
 import { PageTitle } from './PageTitle';
 
