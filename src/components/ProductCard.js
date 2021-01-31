@@ -33,7 +33,9 @@ export const ProductCard = props => {
 
   return (
     <Card
+      hoverable
       style={{ width: 300, margin: 10 }}
+      headStyle={{ backgroundColor: '#eee' }}
       cover={
         <div style={{ overflow: 'hidden', width: 300, height: 180 }}>
           <img alt={title} src={coverImage} />

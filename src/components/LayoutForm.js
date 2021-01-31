@@ -20,18 +20,20 @@ const LayoutStyle = {
   overflow: 'hidden'
 };
 const HeaderStyle = {
-  width: '100%'
+  width: '100%',
+  backgroundColor: '#000'
 };
 
 const ContentStyle = {
   padding: '1rem',
   width: '100%',
   margin: '0 auto',
-  overflow: 'auto'
+  overflow: 'auto',
+  backgroundColor: '#eee'
 };
 
 const FooterStyle = {
-  backgroundColor: '#1b1c1d',
-  color: '#fff',
+  backgroundColor: '#000',
+  color: '#000',
   float: 'right'
 };
