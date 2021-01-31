@@ -34,6 +34,9 @@ export const finalPaymentSelector = state => {
         );
         priceObject.amountDiscountPrice = discountAmount;
       }
+      if (priceObject.rateDiscountPrice > priceObject.amountDiscountPrice) {
+        recommend.recommend = 'rate';
+      }
       if (
         priceObject.rateDiscountPrice !== 0 &&
         priceObject.rateDiscountPrice <= priceObject.amountDiscountPrice // 두 값이 같은 경우 'amount'로 처리한다

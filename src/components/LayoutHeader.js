@@ -16,7 +16,7 @@ export const LayoutHeader = () => {
       <Row>
         <Col xs={20} sm={12}>
           <NavLink to={PRODUCTS_LIST_PATH}>
-            <Title style={titleStyle}>CLASS</Title>
+            <Title style={titleStyle}>CLASS101</Title>
           </NavLink>
         </Col>
         <Col xs={4} sm={12} style={{ textAlign: 'right' }}>
