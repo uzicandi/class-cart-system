@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button, Table, InputNumber, Tag } from 'antd';
 import { PriceLabel } from './PriceLabel';
 import { CouponTag } from './CouponTag';
-import { postPaymentCartedItems } from '../store/modules/products';
+import { postPaymentCartedItems } from '../store/modules/cart';
+import { storageService } from '../services/storageService';
 
 export const CartTable = props => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { dataSource, inputNumberChange } = props;
-  // const {paymentDataSource, recommend} = useSelector(finalPaymentSelector);
+  const all_products = useSelector(state => state.products.all_products.data);
 
   const dispatch = useDispatch();
 
@@ -34,6 +35,11 @@ export const CartTable = props => {
     },
     [inputNumberChange]
   );
+
+  const cleanAllCarts = useCallback(() => {
+    // 삭제하시겠습니까? modal alert
+    //storageService.removeItem('carted-item');
+  }, [storageService.removeItem]);
 
   const columns = [
     {
@@ -86,7 +92,9 @@ export const CartTable = props => {
             ? `선택 상품(${selectedRowKeys.length}개)`
             : '선택 상품(0개)'}
         </span>
-        <Button>장바구니 비우기</Button>
+        <Button onClick={cleanAllCarts} disabled={!dataSource}>
+          장바구니 비우기
+        </Button>
       </div>
       <Table
         rowSelection={rowSelection}

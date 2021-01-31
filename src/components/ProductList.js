@@ -10,7 +10,7 @@ function ProductList(props) {
     <>
       <Row>
         <Col span={24}>
-          <PageTitle title="생품목록" />
+          <PageTitle title="상품목록" />
         </Col>
       </Row>
       <Row>

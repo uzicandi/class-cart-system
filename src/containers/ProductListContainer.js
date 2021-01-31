@@ -32,7 +32,7 @@ function ProductListContainer() {
         );
         setCartItems([...cartItems.filter(value => value !== id)]);
       } else if (cartItems.length >= 3) {
-        console.log('modal alert');
+        console.log('modal alert'); // infoModal
       } else {
         cartItems.push(id);
         storageService.setItem('carted-item', JSON.stringify([...cartItems]));

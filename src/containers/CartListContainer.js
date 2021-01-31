@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartPage from '../pages/CartPage';
-import { getCartedItems } from '../store/modules/products';
+import { getCartedItems } from '../store/modules/cart';
 import { storageService } from '../services/storageService';
 
 function CartListContainer() {
   const dispatch = useDispatch();
   const all_products = useSelector(state => state.products.all_products.data);
-  const cartedItems = useSelector(state => state.products.cartedItems);
+  const cartedItems = useSelector(state => state.cart.cartedItems);
 
   useEffect(() => {
     if (storageService.getItem('carted-item')) {
@@ -18,7 +18,7 @@ function CartListContainer() {
         )
       );
     }
-  }, [storageService.setItem]);
+  }, [storageService.getItem, storageService.removeItem]);
 
   return <CartPage cartedItems={cartedItems} />;
 }

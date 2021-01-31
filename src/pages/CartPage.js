@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Row, Col, Divider } from 'antd';
 import { PageTitle } from '../components/PageTitle';
 import { CartTable } from '../components/CartTable';
-import { getCartedItemsEdit } from '../store/modules/products';
+import { getCartedItemsEdit } from '../store/modules/cart';
 import { CartFinalPriceTable } from '../components/CartFinalPriceTable';
 
 function CartPage(props) {
