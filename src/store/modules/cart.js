@@ -6,7 +6,9 @@ const GET_CARTED_ITEMS_ID = 'cart/GET_CARTED_ITEMS_ID';
 const GET_CARTED_ITEMS = 'cart/GET_CARTED_ITEMS';
 const GET_CARTED_ITEMS_EDIT = 'cart/GET_CARTED_ITEMS_EDIT';
 
+const GET_PAYMENT_CARTED_ITEMS = 'cart/GET_PAYMENT_CARTED_ITEMS';
 const FETCH_PAYMENT_CARTED_ITEMS = 'cart/FETCH_PAYMENT_CARTED_ITEMS';
+
 const DELETE_ALL_CARTED_ITEMS = 'cart/DELETE_ALL_CARTED_ITEMS';
 
 /**
@@ -68,7 +70,6 @@ export const getCartedItems = (cartedItemsId, all_products) => dispatch => {
  * @param {상품 수량} quantity
  */
 export const getCartedItemsEdit = (id, quantity) => dispatch => {
-  // id로 해당 row 찾아서 quatity 넣기, 전체 state도 있어야함
   dispatch({
     type: GET_CARTED_ITEMS_EDIT,
     payload: id,
@@ -77,14 +78,25 @@ export const getCartedItemsEdit = (id, quantity) => dispatch => {
 };
 
 /**
+ *  결제창 빈 배열
+ */
+export const getPaymentCartedItems = ids => dispatch => {
+  dispatch({
+    type: GET_PAYMENT_CARTED_ITEMS,
+    payload: ids
+  });
+};
+
+/**
  *
  * @param {장바구니에서 선택한 ID 배열} ids
  * @param {장바구니에서 선택한 ROW 배열} rows
  */
-export const fetchPaymentCartedItems = (ids, rows) => dispatch => {
+export const fetchPaymentCartedItems = props => dispatch => {
+  const { selectedRows } = props;
   dispatch({
     type: FETCH_PAYMENT_CARTED_ITEMS,
-    payload: rows
+    payload: selectedRows
   });
 };
 
@@ -111,6 +123,7 @@ export default function cart(state = initialState, action) {
       });
     case GET_CARTED_ITEMS_EDIT:
       const { id, quantity } = action.payload;
+
       const cartedItemById = Object.values(state.cartedItems).filter(
         product => product.id === id
       );
@@ -122,9 +135,37 @@ export default function cart(state = initialState, action) {
         quantity: quantity
       };
       const newDisplayPrice = cartedItemById[0].price * quantity;
+
+      const paymentCartItem = Object.values(state.paymentCartedItems).filter(
+        product => product.id === id
+      );
+      const key2 = Object.values(state.paymentCartedItems).findIndex(
+        product => product.id === id
+      );
+      const newPaymentCartItem = paymentCartItem.map(product => {
+        const newProductItem = {
+          id: product.id,
+          key: product.id,
+          price: product.price,
+          displayPrice: product.price * quantity,
+          quantity: quantityObj,
+          title: product.title,
+          score: product.score,
+          coverImage: product.coverImage
+        };
+        return newProductItem;
+      });
+
       return produce(state, draft => {
         draft.cartedItems[key].quantity = quantityObj;
         draft.cartedItems[key].displayPrice = newDisplayPrice;
+        if (state.paymentCartedItems.length !== 0) {
+          draft.paymentCartedItems[key2] = newPaymentCartItem[0];
+        }
+      });
+    case GET_PAYMENT_CARTED_ITEMS:
+      return produce(state, draft => {
+        draft.paymentCartedItems = [];
       });
     case FETCH_PAYMENT_CARTED_ITEMS:
       return produce(state, draft => {

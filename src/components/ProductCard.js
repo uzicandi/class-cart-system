@@ -11,7 +11,6 @@ export const ProductCard = props => {
   const [carted, setCarted] = useState(false);
 
   useEffect(() => {
-    // 로딩 시 담기/빼기 표시용
     if (storageService.checkCart(id)) {
       setCarted(true);
     }
@@ -21,10 +20,8 @@ export const ProductCard = props => {
     id => {
       onClick(id);
       if (storageService.checkCart(id)) {
-        // cart에 있을때
         setCarted(true);
       } else {
-        // cart에 없을때
         setCarted(false);
       }
     },

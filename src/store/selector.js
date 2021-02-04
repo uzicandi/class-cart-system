@@ -7,7 +7,7 @@ export const finalPaymentSelector = state => {
     rateDiscountPrice: 0,
     amountDiscountPrice: 0
   };
-  const paymentData = state.cart.cartedItems;
+  const paymentData = state.cart.paymentCartedItems;
   const all_coupons = state.coupons.all_coupons.data;
   let discountRate = '';
   let discountAmount = '';

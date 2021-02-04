@@ -16,13 +16,17 @@ export const CartTable = props => {
   const dispatch = useDispatch();
 
   const handleSelectChange = useCallback(
-    // checkbox 선택
     (selectedRowKeys, selectedRows) => {
       setSelectedRowKeys(selectedRowKeys);
-      // 최종결제 금액에 추가하는 함수
-      dispatch(fetchPaymentCartedItems(selectedRowKeys, selectedRows));
+      dispatch(fetchPaymentCartedItems({ selectedRows: selectedRows }));
     },
     [dispatch, setSelectedRowKeys]
+  );
+  const test = useCallback(
+    (selectedRowKeys, selectedRows) => {
+      console.log('test', selectedRowKeys, selectedRows);
+    },
+    [inputNumberChange]
   );
 
   const rowSelection = {
