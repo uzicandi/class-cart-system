@@ -10,6 +10,7 @@ export const getProducts = (_page = 1) => {
     }
   });
 };
+// axios 에서 2번째 파라미터를 params 객체로 넣어줌으로써 json 조절.
 
 export const getAllProducts = () =>
   axios.get(`http://localhost:4000/productItems`);

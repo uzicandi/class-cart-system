@@ -22,12 +22,6 @@ export const CartTable = props => {
     },
     [dispatch, setSelectedRowKeys]
   );
-  const test = useCallback(
-    (selectedRowKeys, selectedRows) => {
-      console.log('test', selectedRowKeys, selectedRows);
-    },
-    [inputNumberChange]
-  );
 
   const rowSelection = {
     selectedRowKeys,

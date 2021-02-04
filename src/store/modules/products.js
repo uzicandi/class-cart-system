@@ -43,6 +43,7 @@ export const setCurrentPage = current_page => dispatch => {
   });
 };
 
+// 반복되는 initialState 리팩토링
 export const initialState = {
   products: reducerUtils.initial(),
   all_products: reducerUtils.initial(),
