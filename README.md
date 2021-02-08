@@ -19,6 +19,19 @@ $ yarn start
 - [x] Redux
 - [x] immer, axios, json-server, antd, react-router-dom
 
+### Directory 구조 
+```
+.
++-- api : axios로 데이터 받아오는 함수 
++-- components : 컴포넌트
++-- containers : 상태를 불러오거나 dispatch하는데 사용
++-- lib : 비동기에 사용하는 thunk 함수들 
++-- routes : routing에 필요한 상수들
++-- services : localStorage CRUD 함수
++-- store : 리듀서 모듈과 스토어
+    +-- modules
+```
+
 ### 구현 내용
 
 - [x] **상품 목록 페이지 (route: `/products`)**
